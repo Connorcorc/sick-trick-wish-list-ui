@@ -1,0 +1,9 @@
+.option {
+  padding: 10px;
+  margin-left: 10px;
+}
+
+.formBody {
+  display: flex;
+  justify-content: center;
+}

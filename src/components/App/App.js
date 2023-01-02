@@ -18,8 +18,28 @@ class App extends Component {
   }
 
   addTricks = (newTrick) => {
-  this.setState({tricks: [...this.state.tricks, newTrick]})
-}
+    this.setState({tricks: [...this.state.tricks, newTrick]})
+  }
+
+  removeTrick = async (id) => {
+    const filterTrick = this.state.tricks.filter(trick => trick.id !== id)
+    this.setState({ tricks: filterTrick })
+    fetch(`http://localhost:3001/api/v1/tricks/${id}`, {
+      method: 'DELETE'
+    })
+  }
+
+  postData = async (newTrick) => {
+    const response = await fetch ('http://localhost:3001/api/v1/tricks', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newTrick),
+    })
+    const data = await response.json()
+    console.log(data)
+    console.log(newTrick)
+  }
+
 
   render() {
     console.log(this.state.tricks)
@@ -27,10 +47,10 @@ class App extends Component {
       <main className="App">
         <h1>Sick Trick Wish List</h1>
         <div className='trickForm'>
-          <Form addTricks={this.addTricks}/>
+          <Form addTricks={this.addTricks} postData={this.postData}/>
         </div>
         <div className='trickBox'>
-          <Trick tricks={this.state.tricks} />
+          <Trick tricks={this.state.tricks} removeTrick={this.removeTrick}/>
         </div>
       </main>
     );

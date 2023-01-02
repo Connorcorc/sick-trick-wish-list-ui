@@ -5,9 +5,10 @@ class Form extends Component {
   constructor() {
     super()
     this.state = {
+      stance: "",
       name: "",
       obstacle: "",
-      stance: ""
+      tutorial: "",
     }
   }
 
@@ -22,6 +23,7 @@ class Form extends Component {
       ...this.state
     }
     this.props.addTricks(newTrick)
+    this.props.postData(newTrick)
     this.clearInput()
   }
 
@@ -35,20 +37,23 @@ class Form extends Component {
 
   render() {
     return (
-      <form>
-        <input type='text' placeholder='Which Trick You Wanna Do?!' name='name' value={this.state.name} onChange={event => this.handleChange(event)} />
-        <select name='stance' value={this.state.stance} onChange={event => this.handleChange(event)}>
+      <form className="formBody">
+        <input className='option' type='text' placeholder='Which Trick You Wanna Do?!' name='name' value={this.state.name} onChange={event => this.handleChange(event)} />
+        <select className='option' name='stance' value={this.state.stance} onChange={event => this.handleChange(event)}>
+          <option hidden>Select a stance</option>
           <option>Regular</option>
           <option>Switch</option>
         </select>
-        <select name='obstacle' value={this.state.obstacle} onChange={event => this.handleChange(event)}>
+        <select className='option' name='obstacle' value={this.state.obstacle} onChange={event => this.handleChange(event)}>
+          <option hidden>Select a obstacle</option>
           <option>Flatground</option>
           <option>Ledge</option>
           <option>Rail</option>
           <option>Stairs</option>
           <option>Pool</option>
         </select>
-        <button onClick={event => this.addTrick(event)}>Let's Get Sendy!</button>
+        <input className='option' type='text' placeholder='Link To Tutorial' name='tutorial' value={this.state.tutorial} onChange={event => this.handleChange(event)} />
+        <button className='option' onClick={event => this.addTrick(event)}>Let's Get Sendy!</button>
       </form>
     )
   }
